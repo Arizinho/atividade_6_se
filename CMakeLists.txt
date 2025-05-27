@@ -24,29 +24,23 @@ include(pico_sdk_import.cmake)
 set(FREERTOS_KERNEL_PATH "D:/FreeRTOS-Kernel")
 include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
 
-project(EstacaoAlertaEnchente C CXX ASM)
+project(SistemaDeAcesso C CXX ASM)
 pico_sdk_init()
-
 
 include_directories(${CMAKE_SOURCE_DIR}/lib)
 
-
 add_executable(${PROJECT_NAME}  
-    alerta_enchente.c 
+    controle_acesso.c 
     lib/ssd1306.c # Biblioteca para o display OLED
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
-
-pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/led_matrix.pio)
 
 target_link_libraries(${PROJECT_NAME} 
     pico_stdlib 
     hardware_gpio
     hardware_i2c
     hardware_pwm
-    hardware_adc
-    hardware_pio
     FreeRTOS-Kernel 
     FreeRTOS-Kernel-Heap4
 )
